@@ -5,6 +5,7 @@ from torch.nn.functional import mse_loss
 from torch.optim import SGD
 from tonemappers import *
 EXPOSURE = 4.0
+plt.ioff()
 
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
@@ -33,8 +34,6 @@ for i in range(10000):
     optim.step()
     optim.zero_grad()
     if (i % 1000) == 0:
-        ax.imshow(new_tm_im.detach().cpu().numpy())
-        plt.show(block=False)
-        plt.pause(0.001)
         print(loss.item())
+ax.imshow(new_tm_im.detach().cpu().numpy())
 plt.show()
