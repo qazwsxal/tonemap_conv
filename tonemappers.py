@@ -78,7 +78,7 @@ class JodieLuma(nn.Module):
         self.dotp = nn.Parameter(torch.tensor((0.2126, 0.7152, 0.0722)))
 
     def forward(self, x):
-        luma = torch.dot(x, self.dotp)
+        luma = (x * self.dotp).sum(dim=-1,keepdim=True)
         tm_luma = luma / (luma + 1.0)
         x = x * (tm_luma / luma)
         return linear_to_srgb(x)

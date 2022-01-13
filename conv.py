@@ -16,7 +16,8 @@ pil_image = Image.open("Laser_1_Blue.png")
 to_tensor = transforms.ToTensor()
 
 in_image = to_tensor(pil_image).transpose(-1, 0).to(device)
-out_image = torch.ones_like(in_image)/2
+out_image = torch.clone(in_image)
+# out_image = torch.ones_like(in_image)/2
 out_image.requires_grad = True
 optim = SGD((out_image,), lr=1e-3)
 
